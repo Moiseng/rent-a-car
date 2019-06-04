@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12">
+                    <h1>Votre voiture avec l'id : {{ car.id }}</h1>
+                    <h3>Marque : {{ car.model }}</h3>
+                    <h3>Prix : {{ car.price }}</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

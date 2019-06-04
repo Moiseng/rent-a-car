@@ -25,80 +25,35 @@
         <a href="#!" class="brand-logo">Logo</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Link1</a></li>
-            <li><a href="#">Link2</a></li>
-            <li><a href="#">Link3</a></li>
+            <li><a href="{{ path('app_index_add') }}">Ajout</a></li>
+            <li><a href="#">Show</a></li>
+            <li><a href="{{ path('app_index_contact') }}">Contact</a></li>
 
         </ul>
         <ul class="side-nav" id="mobile-demo">
-            <li><a href="#">Link1</a></li>
-            <li><a href="#">Link2</a></li>
-            <li><a href="#">Link3</a></li>
+            <li><a href="{{ path('app_index_add') }}">Ajout</a></li>
+            <li><a href="#">Show</a></li>
+            <li><a href="{{ path('app_index_contact') }}">Contact</a></li>
         </ul>
     </div>
 </nav>
 {% endblock %}
 
-
-<div class="section no-pad-bot template" id="index-banner">
-    <div class="container">
-        <br><br>
-        <h1 class="header center  orange-text text-darken-3">Starter Template</h1>
-        <div class="row center">
-            <h5 class="header col s12 light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</h5>
+{% block flash_messages %}
+    {% for message in app.flashes('success') %}
+        <div class="card-panel teal lighten-2">
+            {{ message }}
         </div>
-        <div class="row center">
-            <a href="#" class="btn-large waves-effect waves-light orange darken-3">View more</a>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="card-panel red darken-3">
+            {{ message }}
         </div>
-        <br><br>
-
-    </div>
-</div>
+    {% endfor %}
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="section">
 
-        <!--   Icon Section   -->
-        <div class="row">
-            <div class="col s12 m4">
-                <div class="icon-block">
-                    <h2 class="center light-blue-text"><i class="fa fa-connectdevelop"></i></h2>
-                    <h5 class="center">Feature one</h5>
-
-                    <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-                    </p>
-                </div>
-            </div>
-
-            <div class="col s12 m4">
-                <div class="icon-block">
-                    <h2 class="center light-blue-text"><i class="fa fa-user-plus"></i></h2>
-                    <h5 class="center">Feature two</h5>
-
-                    <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-                    </p>
-                </div>
-            </div>
-
-            <div class="col s12 m4">
-                <div class="icon-block">
-                    <h2 class="center"><i class="fa fa-cogs"></i></h2>
-                    <h5 class="center">Feature three</h5>
-
-                    <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-                    </p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <br><br>
-
-    <div class="section">
-
-    </div>
-</div>
 {% endblock %}
 
 {% block footer %}
