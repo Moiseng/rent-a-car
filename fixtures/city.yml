@@ -1,0 +1,11 @@
+App\Entity\City:
+  city_1:
+    name: Paris
+  city_2:
+    name: Lyon
+  city_3:
+    name: Marseille
+  city_4:
+    name: Lille
+  city_5:
+    name: Bordeaux

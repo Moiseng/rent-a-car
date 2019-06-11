@@ -1,0 +1,42 @@
+App\Entity\Car:
+  car_{Peugeot, Renault, Mazda}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    cities: ['@city_1','@city_2','@city_5']
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+  car_{X5, Mercedes, Audi}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    cities: ['@city_5', '@city_2']
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+  car_{GLA, Toyota, Nissan}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    cities: ['@city_4', '@city_3']
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+  car_{BMW, Honda, Ferrari}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+  car_{Maserati, Lamborghini, Bugatti}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+    cities: ['@city_1', '@city_3']
+  car_{Aston, Chevrolet, Camaro}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+    cities: ['@city_1', '@city_4', '@city_5', '@city_2']
+  car_{Ariel, Volkswagen, Bentley}:
+    model: '<current()>'
+    price: '<carPrice()>'
+    carburant: '<carCarburant()>'
+    color: '<carColor()>'
+    cities: ['@city_1', '@city_3', '@city_5']

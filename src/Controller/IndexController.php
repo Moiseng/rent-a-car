@@ -5,10 +5,15 @@ namespace App\Controller;
 
 
 use App\Entity\Car;
+use App\Entity\Image;
+use App\Entity\Keyword;
 use App\Form\CarType;
 use App\Repository\CarRepository;
+use App\Services\ImageHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,7 +50,7 @@ class IndexController extends AbstractController
      *
      * @Route("/add")
      */
-    public function add(EntityManagerInterface $manager, Request $request) // l'entityManager qui va permettre d'injecter mes données dans la bdd
+    public function add(EntityManagerInterface $manager, Request $request, ImageHandler $handler) // l'entityManager qui va permettre d'injecter mes données dans la bdd
     {
 
         // je cree un objet de Cartype ( formulaire )
@@ -59,11 +64,18 @@ class IndexController extends AbstractController
 
             if ($form->isValid()) {
 
+                $path = $this->getParameter('kernel.project_dir'). '/public/images';
+
                 /*
-                 * je recupere les informations soumis dans le formulaire, je les stock dans ma variable " $car "
-                 * pour ensuite les flush dans la bdd
+                 * Recupere les valeurs sous forme d'objet Car
                  */
                 $car = $form->getData();
+
+                // Recupere l'image
+                /** @var Image $image */
+                $image = $car->getImage();
+
+                $image->setPath($path);
                 $manager->persist($car);
                 $manager->flush();
 
@@ -120,14 +132,24 @@ class IndexController extends AbstractController
         if($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $manager->flush();
 
+                $path = $this->getParameter('kernel.project_dir'). '/public/images';
+
+                /** @var Image $image */
+                $image = $form->getData()->getImage();
+
+                $image->setPath($path);
+                $manager->flush();
                 $this->addFlash(
                     'success',
                     'La voiture à bien été modifée'
                 );
 
-                return $this->redirectToRoute('app_index_index');
+                return $this->redirectToRoute('app_index_show',
+                        [
+                            'id' => $car->getId()
+                        ]
+                    );
             }
             else {
 
@@ -171,6 +193,10 @@ class IndexController extends AbstractController
     }
 
 
+    /*-------------------------------------------------------------------
+                    FONCTION AFFICHAGE ANNONCES
+    ---------------------------------------------------------------------*/
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -197,6 +223,28 @@ class IndexController extends AbstractController
     {
 
         return $this->render('home/contact.html.twig');
+
+    }
+
+
+    /*--------------------------------------------------------------------
+                    FONCTION POUR SUPPRIMER LES MOTS CLES
+    ---------------------------------------------------------------------*/
+
+    /**
+     *
+     * @Route("/delete/keyword/{id}", methods={"POST"}, condition="request.headers.get('X-Requested-With') matches '/XMLHttpRequest/i'")
+     */
+    /*
+     * isXmlHttpRequest ( si c'est une requête ajax
+     */
+    public function deleteKeyword(Keyword $keyword, EntityManagerInterface $entityManager)
+    {
+
+        $entityManager->remove($keyword);
+        $entityManager->flush();
+
+        return new JsonResponse();
 
     }
 

@@ -9,6 +9,30 @@
                     <h3>Marque : {{ car.model }}</h3>
                     <h3>Prix : {{ car.price }}</h3>
 
+                    {% if car.image.name is defined %}
+                        <img src="{{ asset('images/')~car.image.name }}" alt="">
+                        {% else %}
+                        <p>Page d'image sur cette annonce</p>
+                    {% endif %}
+
+                    {% for keyword in car.keywords %}
+                        <p>{{ keyword.name }}
+                            {% if not loop.last %}
+                                ,
+                                {% else %}
+                                .
+                            {% endif %}
+                        </p>
+                    {% endfor %}
+
+                    {% if car.cities|length > 0 %}
+                        <p>
+                            Voiture disponible à
+                            {% for city in car.cities %}
+                                <a class="btn waves-effect waves-light">{{ city.name }}</a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>

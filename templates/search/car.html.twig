@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col m6 offset-m3">
+                    <h1>Recherche avancée</h1>
+
+                    {{ form(search_form) }}
+                </div>
+            </div>
+
+            {% if app.request.method == 'POST'  %}
+            <div class="row">
+                <div class="col m6 offset-m3">
+                    {% if cars|length == 0%}
+                        <p>Aucun résultat pour votre recherche</p>
+                    {% else %}
+                    <h1>Resultat de la recherche</h1>
+
+                    {% for car in cars %}
+                        <div>
+                            <a style="font-size: 4rem; text-decoration: none; color: black" href="{{ path('app_index_show', {'id': car.id}) }}">Modèle : {{ car.model }}</a>
+                            <h2>Prix : {{ car.price }}</h2>
+                            {% if car.image.name is defined %}
+                                <a href="{{ path('app_index_show', {'id': car.id}) }}"><img src="{{ asset('images/')~car.image.name }}" alt=""></a>
+                                {% else %}
+                                <p>Pas d'image sur cette annonce</p>
+                            {% endif %}
+
+                            {% for keyword in car.keywords  %}
+                                <p>{{ keyword.name }} {% if loop.last %},
+                                        {% else %}.
+                                    {% endif %}</p>
+                            {% endfor %}
+
+                            {% if car.cities|length > 0 %}
+                                <p>Voiture disponibles à
+                                    {% for city in car.cities %}
+                                        <a class="btn waves-effect waves-light">{{ city.name }}</a>
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+{{ parent() }}
+
+<script src="{{ asset('js/form_car.js') }}"></script>
+{% endblock %}

@@ -1,11 +1,51 @@
-
-    {{ form_start(form, {'attr' : {'novalidate' : 'novalidate'}}) }}
-    {{ form_label(form.model) }}
+{{ form_start(form, {'attr' : {'novalidate' : 'novalidate'}}) }}
+<div class="input-field col s12">
+    {{ form_label(form.model, 'Modèle :', {label_attr : {'class': 'form_model'}}) }}
     {{ form_widget(form.model) }}
-    <span style="color: red"><strong>{{ form_errors(form.model) }}</strong></span>
-
-    {{ form_label(form.price, 'Prix :', {label_attr : {'class': 'form_price'}}) }}
+    <span style="color: red;"><strong>{{ form_errors(form.model) }}</strong></span>
+</div>
+<div class="input-field col s12">
+    {{ form_label(form.price) }}
     {{ form_widget(form.price) }}
-    {{ form_errors(form.price) }}
+    <span style="color: red;"><strong>{{ form_errors(form.price) }}</strong></span>
+</div>
+
+<div class="file-field input-field col s12">
+    {# form.image.vars.value, Recupere l'image courante #}
+    {% if form.image.vars.value.name is defined %}
+        <img src="{{ asset('images/')~form.image.vars.value.name }}" class="responsive-img">
+    {% endif %}
+    <div class="btn">
+        {{ form_row(form.image) }}
+        <span>{{ (form.image.vars.value.name is defined) ? "Modifier l'" : "Ajouter une" }} image</span>
+    </div>
+    <div class="file-path-wrapper">
+        <input type="text" class="file-path validate">
+    </div>
+</div>
+<div class="input-field col s12">
+    <button class="addKeyword btn waves-effect waves-light">Ajouter un mot clé</button>
+    <div class="error-delete-keyword" style="display: none">
+        <div class="card-panel">
+            <span class="red-text text-darken-2">Erreur lord de suppression du mot clé</span>
+        </div>
+    </div>
+    {{ form_widget(form.keywords) }}
+</div>
+<div class="input-field col s12">
+    {{ form_label(form.cities) }}
+    {{ form_widget(form.cities) }}
+    <span style="color: red"><strong>{{ form_errors(form.cities) }}</strong></span>
+</div>
+<div class="input-field col s12">
+    {{ form_label(form.color) }}
+    {{ form_widget(form.color) }}
+    <span style="color: red"><strong>{{ form_errors(form.cities) }}</strong></span>
+</div>
+<div class="input-field col s12">
+    {{ form_label(form.carburant) }}
+    {{ form_widget(form.carburant) }}
+    <span style="color: red"><strong>{{ form_errors(form.cities) }}</strong></span>
+</div>
 
 
