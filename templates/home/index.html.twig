@@ -9,8 +9,15 @@
                 <h5 class="header col s12 light">Location de voitures</h5>
             </div>
             <div class="row center">
-                <a href="{{ path('app_index_add') }}" class="btn-large waves-effect waves-light orange darken-3">Ajout</a>
-                <a href="{{ path('app_search_searchcar') }}" class="btn-large waves-effect waves-light orange darken-3">Recherche avancée</a>
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_index_add') }}" class="btn-large waves-effect waves-light orange darken-3"><i class="material-icons">add_circle</i>Ajout</a>
+                {% endif %}
+                <a href="{{ path('app_search_searchcar') }}" class="btn-large waves-effect waves-light orange darken-3"><i class="material-icons">search</i>Recherche avancée</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_admin_admin') }}" class="btn-large waves-effect waves-light orange darken-3"><i class="material-icons">lock</i>Admin</a>
+                {% endif %}
+                <a href="{{ path('app_security_registrationform') }}" class="btn-large waves-effect waves-light orange darken-3"><i class="material-icons">lock</i>Inscription</a>
+                <a href="{{ path('app_login') }}" class="btn-large waves-effect waves-light orange darken-3"><i class="material-icons">lock</i>Inscription</a>
             </div>
             <br><br>
 

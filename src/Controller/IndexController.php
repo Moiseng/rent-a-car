@@ -48,7 +48,7 @@ class IndexController extends AbstractController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/add")
+     * @Route("/car/add")
      */
     public function add(EntityManagerInterface $manager, Request $request, ImageHandler $handler) // l'entityManager qui va permettre d'injecter mes données dans la bdd
     {
@@ -71,6 +71,10 @@ class IndexController extends AbstractController
                  */
                 $car = $form->getData();
 
+                // recupere l'utilisateur courrant ( connecté )
+                $user = $this->getUser();
+
+                $car->setUser($user);
                 // Recupere l'image
                 /** @var Image $image */
                 $image = $car->getImage();
@@ -113,7 +117,7 @@ class IndexController extends AbstractController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/edit/{id}")
+     * @Route("/car/edit/{id}")
      */
     public function edit(Car $car, EntityManagerInterface $manager, Request $request)
         /*
@@ -176,7 +180,7 @@ class IndexController extends AbstractController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/delete/{id}")
+     * @Route("/car/delete/{id}")
      */
     public function delete(Car $car, EntityManagerInterface $manager)
         /*
